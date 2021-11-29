@@ -1,0 +1,23 @@
+* body {
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+
+.myTable {
+    width: 75%;
+    text-align: center;
+}
+
+
+.edit:hover {
+  color:blue;
+  cursor: pointer;
+}
+
+.garbage:hover {
+    color:red;
+    cursor: pointer;
+    height: 150%;
+  }
