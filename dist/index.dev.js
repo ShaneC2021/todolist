@@ -2,7 +2,7 @@
 
 var form = document.getElementById("myForm"); // prints data in local storage to UI on page load
 
-window.addEventListener("load", function () {
+document.addEventListener("DOMContentLoaded", function () {
   var retrievedArray = JSON.parse(localStorage.getItem("array"));
 
   if (retrievedArray !== null) {
