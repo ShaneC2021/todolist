@@ -19,8 +19,7 @@ form.addEventListener("submit", function (event) {
 /* each to do item is an object which is saved in an array,
     that array is then stringified and saved in local storage
     in order to retrieve the array from storage. Storage "key"
-    is used to retrieve the the stringified array which is then parsed
-    into a newarray
+    is used to retrieve the the stringified array 
   */
 
 function addToList() {
@@ -76,7 +75,6 @@ function trash(index) {
 
   if (arrayOfTodoList.length === 0) {
     localStorage.removeItem("array");
-    updateIndex(arrayOfTodoList);
     loadTableData(arrayOfTodoList);
   } else {
     updateIndex(arrayOfTodoList);
