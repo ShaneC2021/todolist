@@ -1,16 +1,18 @@
-let form = document.getElementById("myForm");
+"use strict";
 
-// prints data in local storage to UI on page load
-document.addEventListener("DOMContentLoaded",  () => {
-  let retrievedArray = JSON.parse(localStorage.getItem("array"));
+var form = document.getElementById("myForm"); // prints data in local storage to UI on page load
+
+document.addEventListener("DOMContentLoaded", function () {
+  var retrievedArray = JSON.parse(localStorage.getItem("array"));
+
   if (retrievedArray !== null) {
     loadTableData(retrievedArray);
   }
 });
-
 form.addEventListener("submit", function (event) {
-  let input = document.getElementById("item");
+  var input = document.getElementById("item");
   input.value = ""; // clears input field when to do item is submitted
+
   event.preventDefault();
 });
 /* each to do item is an object which is saved in an array,
@@ -20,48 +22,44 @@ form.addEventListener("submit", function (event) {
   */
 
 function addToList() {
-  let arrayOfTodoList = [];
-  let retrievedArray = JSON.parse(localStorage.getItem("array")); // gets data stored under the key "array"
+  var arrayOfTodoList = [];
+  var retrievedArray = JSON.parse(localStorage.getItem("array")); // gets data stored under the key "array"
 
   if (retrievedArray !== null) {
     arrayOfTodoList = retrievedArray; // if storage is not empty this variable gets what is in local Storage which would be an array
   }
 
-  let toDoItem = {
+  var toDoItem = {
     index: "",
-    item: document.getElementById("item").value,
-  };
+    item: document.getElementById("item").value
+  }; // however if storage is empty arrayOfTodoList stores new data, upates index, then updates localStorage
 
-  // however if storage is empty arrayOfTodoList stores new data, upates index, then updates localStorage
   arrayOfTodoList.push(toDoItem);
-  for (let i = 0; i < arrayOfTodoList.length; i++) {
+
+  for (var i = 0; i < arrayOfTodoList.length; i++) {
     arrayOfTodoList[i].index = i;
   }
+
   localStorage.setItem("array", JSON.stringify(arrayOfTodoList));
   loadTableData(arrayOfTodoList);
 }
 
 function loadTableData(array) {
-  let tableBody = document.getElementById("tableData");
-  let row = "";
-
+  var tableBody = document.getElementById("tableData");
+  var row = "";
   tableBody.innerHTML = "";
-  for (let i = 0; i < array.length; i++) {
-    let rank = i + 1;
-    row = `<tr>
-               <td>${rank}</td>
-               <td>${array[i].item}</td>
-               <td><i class="bi bi-trash m-1 garbage" onclick="trash(${array[i].index})"></i></td>
-           </tr>`;
+
+  for (var i = 0; i < array.length; i++) {
+    var rank = i + 1;
+    row = "<tr>\n               <td>".concat(rank, "</td>\n               <td>").concat(array[i].item, "</td>\n               <td><i class=\"bi bi-trash m-1 garbage\" onclick=\"trash(").concat(array[i].index, ")\"></i></td>\n           </tr>");
     tableBody.innerHTML += row;
   }
-}
+} // pass index of object in the array
 
-// pass index of object in the array
 
 function trash(index) {
-  let tableBody = document.getElementById("tableData");
-  let arrayOfTodoList = JSON.parse(localStorage.getItem("array"));
+  var tableBody = document.getElementById("tableData");
+  var arrayOfTodoList = JSON.parse(localStorage.getItem("array"));
   tableBody.innerHTML = ""; //clear table body
 
   /* delete object at given index from parsed data
@@ -70,8 +68,10 @@ function trash(index) {
      update index of items in array
      update table based on new array
      if array is not empty  after deletion ,update index, update storage and update UI
-*/
+  */
+
   arrayOfTodoList.splice(index, 1);
+
   if (arrayOfTodoList.length === 0) {
     localStorage.removeItem("array");
     loadTableData(arrayOfTodoList);
@@ -83,7 +83,7 @@ function trash(index) {
 }
 
 function updateIndex(array) {
-  for (let i = 0; i < array.length; i++) {
+  for (var i = 0; i < array.length; i++) {
     array[i].index = i;
   }
 }
